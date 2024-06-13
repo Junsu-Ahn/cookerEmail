@@ -1,6 +1,9 @@
 package com.example.cookers.domain.member.controller;
 
 
+import com.example.cookers.domain.Email.EmailService;
+import com.example.cookers.domain.member.entity.Member;
+import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -10,9 +13,11 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,12 +25,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
     private final MemberService memberService;
+    @ControllerAdvice
+    @RequiredArgsConstructor
+    public class GlobalControllerAdvice {
+        private final MemberRepository memberRepository;
 
+        @ModelAttribute
+        public void addAttributes(Model model, Principal principal) {
+            if (principal != null) {
+                String username = principal.getName();
+                Optional<Member> memberOptional = memberRepository.findByusername(username);
+                if (memberOptional.isPresent()) {
+                    Member member = memberOptional.get();
+                    String profileImageUrl = member.getProfile_url();
+                    model.addAttribute("profileImageUrl", profileImageUrl);
+                }
+            }
+        }
+    }
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String loginPage() {
+
         return "member/login";
     }
+
+    @PostMapping("/login")
+    public String login() {
+        return "/member/login";
+    }
+
 
     @GetMapping("/signup")
     public String signupPage() {
@@ -33,8 +62,8 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid SignForm signForm) {
-        memberService.signup(signForm.getUsername(), signForm.getPassword(), signForm.getNickname(), signForm.getEmail(), signForm.getTypeCode(), signForm.getProfile_url());
+    public String signup(@Valid SignForm signForm, Model model) {
+        memberService.signup(signForm.getProviderTypeCode(), signForm.getUsername(), signForm.getPassword(), signForm.getPassword_confirm(), signForm.getNickname(), signForm.getEmail(), 0L, signForm.getProfile_url());
         return "redirect:/member/login";
     }
 
@@ -63,9 +92,13 @@ public class MemberController {
         @NotBlank
         private String email;
 
-        private String TypeCode;
+        private Long hit;
 
         private String profile_url;
+
+        private String providerTypeCode;
+
+        private String role; // 권한 필드 추가
     }
 
     @ToString

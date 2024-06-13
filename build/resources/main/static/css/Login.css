@@ -1,7 +1,32 @@
+body,ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    padding: 20px;
+}
+.top_bar_section {
+  height: 150px;
+}
+.top_bar_section > .main_logo{
+  text-align: center;
+      background: url(//recipe1.ezmember.co.kr/img/mobile/bg_wave.png?v.2) left bottom repeat-x;
+}
+
+.top_bar_section > .main_logo > a{
+}
+
+.top_bar_section > .main_logo > a > img{
+  display: iline-block;
+  height: 80px;
 }
 
 form {
@@ -13,11 +38,11 @@ form {
     margin: 0 auto;
 }
 
-form div {
+form {
     margin-bottom: 15px;
 }
 
-form div span {
+form span {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -42,17 +67,69 @@ form button {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+  margin-top: 20px;
+  box-shadow: 2px 2px 2px 2px gray;
 }
 
 form button:hover {
     background-color: #0056b3;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+
+.login {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-a:hover {
-    text-decoration: underline;
+.login > a {
+  display: flex;
+  height: 55px;
+  border-radius: 12px;
+  align-items: center;
+}
+
+.login > a > .logo{
+  flex-grow: 1;
+  flex-basis: 0;
+  padding-left: 20px;
+}
+
+.login > a > .logo > img{
+  height: 25px;
+}
+
+.login > a > .name{
+  flex-grow: 2;
+  flex-basis: 0;
+}
+
+.login > a:nth-child(1){
+  background-color: #FEE500;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px 2px gray;
+}
+.login > a:nth-child(1):hover {
+  background-color: rgba(196, 177, 2,0.8);
+  transition: background-color 0.3s ease;
+}
+.login > a:nth-child(2){
+  background-color: #03C75A;
+  color: white;
+  font-weight: bold;
+ box-shadow: 2px 2px 2px 2px gray;
+}
+.login > a:nth-child(2):hover {
+  background-color: rgba(3, 140, 64,0.8);
+  transition: background-color 0.3s ease;
+}
+.login > a:nth-child(3){
+  font-weight: bold;
+  box-shadow: 2px 2px 2px 2px gray;
+}
+
+.login > a:nth-child(3):hover {
+  background-color: rgba(212, 217, 214,0.8);
+  transition: background-color 0.3s ease;
 }

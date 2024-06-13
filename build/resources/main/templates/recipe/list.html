@@ -4,7 +4,12 @@
     <title>오늘은 내가 요리사 ! 오내요</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!--    Bootstrap CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/recipeListPage.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body style="background-image:url('https://cdn.crowdpic.net/detail-thumb/thumb_d_37453125BCADF055749599B7726A6ED7.jpg')">
@@ -12,16 +17,21 @@
     <div class="top_container">
         <div class="nav_bar">
             <div class="main_logo">
-                <a href="#">
+                <a href="/">
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
                 <input type="text" placeholder="레시피 검색">
                 <button class="custom-btn btn-13">검 색</button>
             </div>
-            <div class="user_page">
-                <a href="#">
-                    <img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인"></a>
+            <div class="user_page" >
+                <a sec:authorize="isAnonymous()" href="/member/login">
+                    <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/member/logout">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                </a>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -29,30 +39,31 @@
         <div class="nav_bar">
             <ul class="">
                 <li>
-                    <a class="custom-nav nav-13" href="#">추 천</a>
+                    <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="#">레시피</a>
+                    <a class="custom-nav nav-13" href="/recipe/list/밥요리">레시피</a>
                     <ul>
                         <li>
-                            <a class="custom-nav nav-13" href="#">밥요리</a>
-                            <a class="custom-nav nav-13" href="#">국 & 찌개</a>
-                            <a class="custom-nav nav-13" href="#">면요리</a>
-                            <a class="custom-nav nav-13" href="#">튀김요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/국 & 찌개">국 & 찌개</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/면요리">면요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/튀김요리">튀김요리</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="#">볶음요리</a>
-                            <a class="custom-nav nav-13" href="#">찜 & 조림</a>
-                            <a class="custom-nav nav-13" href="#">샐러드</a>
-                            <a class="custom-nav nav-13" href="#">밑반찬</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/볶음요리">볶음요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/찜 & 조림">찜 & 조림</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/샐러드">샐러드</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/밑반찬">밑반찬</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="#">간식 & 분식</a>
-                            <a class="custom-nav nav-13" href="#">디저트</a>
-                            <a class="custom-nav nav-13" href="#">명절음식</a>
-                            <a class="custom-nav nav-13" href="#">기타요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/간식 & 분식">간식 & 분식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/디저트">디저트</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/명절음식">명절음식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
                         </li>
                     </ul>
+
                 </li>
                 <li>
                     <a class="custom-nav nav-13" href="#">쉐프랭킹</a>
@@ -69,62 +80,53 @@
 
     </div>
     <div class="bottom_container">
-        <h1 class="title_menu">밥요리 <i class="fa-solid fa-bowl-food fa-1x"></i>
+        <h1 class="title_menu" th:text="${categoryValue}">
+            <div>[[${paging.number}]]</div>
         </h1>
-        <li class="recipe_menu">
-            <a href="#">
-                <div class="recipe_img">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/73c2d12d-ceb8-47e8-ab8c-b35ba9f14443" style="width:100%" alt="레시피 이미지">
-                </div>
-                <div class="recipe_text">
-                    <p class="s_text">불 없이 만든 한 그릇</p>
-                    <p class="b_text">반숙명란덮밥</p>
-                </div>
-            </a>
-        </li>
-        <li class="recipe_menu">
-            <a href="#">
-                <div class="recipe_img">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/17ab4d1d-a6ba-4823-b932-d27bb7732e40" style="width:100%" alt="레시피 이미지">
-                </div>
-                <div class="recipe_text">
-                    <p class="s_text">귀여워서 화가 난다</p>
-                    <p class="b_text">앵그리볶음밥</p>
-                </div>
-            </a>
-        </li>
-        <li class="recipe_menu">
-            <a href="#">
-                <div class="recipe_img">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/35232ae7-7a6e-4919-b34c-003e8e02d196" style="width:100%" alt="레시피 이미지">
-                </div>
-                <div class="recipe_text">
-                    <p class="s_text">두 배는 더 고소한</p>
-                    <p class="b_text">참치마요 볶음밥</p>
-                </div>
-            </a>
-        </li>
-        <li class="recipe_menu">
-            <a href="#">
-                <div class="recipe_img">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/797360e5-cd87-4f87-93b4-5412b9728a9d" style="width:100%" alt="레시피 이미지">
-                </div>
-                <div class="recipe_text">
-                    <p class="s_text">느끼함 제로</p>
-                    <p class="b_text">마늘종장아찌 볶음밥</p>
-                </div>
-            </a>
-        </li>
-        <li class="recipe_menu">
-            <a href="#">
-                <div class="recipe_img">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/ce23ceb8-a32d-44e8-b943-5db1720f3d79" style="width:100%" alt="레시피 이미지">
-                </div>
-                <div class="recipe_text">
-                    <p class="s_text">집에서 느끼는 동남아맛!</p>
-                    <p class="b_text">맛살볶음밥</p>
-                </div>
-            </a>
-        </li>
+
+        <ul class="used_page">
+            <li class="recipe_menu" th:each="recipe : ${recipes}" >
+                <a href="#">
+                    <div class="recipe_img">
+                        <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/73c2d12d-ceb8-47e8-ab8c-b35ba9f14443" style="width:100%" alt="레시피 이미지">
+                    </div>
+                    <div class="recipe_text">
+                        <p class="s_text" th:text="${recipe.subject}"></p>
+                        <div>
+                            <p class="b_text" th:text="${recipe.title}"></p>
+                            <div class="icon"><i class="fa-solid fa-eye"></i>
+                                <div class="view" th:text="${recipe.view}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
     </div>
+    <!-- 페이징처리 시작 -->
+<!--    <div th:if="${!paging.isEmpty()}">-->
+<!--        <ul class="pagination justify-content-center">-->
+<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                <a class="page-link"-->
+<!--                   th:href="@{|?page=${paging.number-1}|}">-->
+<!--                    <span>이전</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
+<!--                th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+<!--                th:classappend="${page == paging.number} ? 'active'"-->
+<!--                class="page-item">-->
+<!--                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
+<!--            </li>-->
+<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+<!--                    <span>다음</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    <!-- 페이징처리 끝 -->
+</div>
+<script th:src="@{/listjs/listPage.js}"></script>
 </body>

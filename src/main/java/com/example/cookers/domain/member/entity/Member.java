@@ -36,4 +36,8 @@ public class Member extends BaseEntity {
     // providerId : 구굴 로그인 한 유저의 고유 ID가 들어감
     private String providerId;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private Long hit;
 }

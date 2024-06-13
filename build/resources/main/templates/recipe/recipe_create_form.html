@@ -1,0 +1,217 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘은 내가 요리사 ! 오내요</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" th:href="@{/css/recipeCreateFormPage.css}">
+    <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body style="background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e')">
+<div class="top_bar_section">
+    <div class="top_container">
+        <div class="nav_bar">
+            <div class="main_logo">
+                <a href="/">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
+            </div>
+            <div class="search_bar">
+                <input type="text" placeholder="레시피 검색">
+                <button class="custom-btn btn-13">검 색</button>
+            </div>
+            <div class="user_page">
+                <a sec:authorize="isAnonymous()" href="/member/login">
+                    <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/member/logout">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                </a>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
+            </div>
+        </div>
+    </div>
+    <div class="middle_container">
+        <div class="nav_bar">
+            <ul class="">
+                <li>
+                    <a class="custom-nav nav-13" href="/">메 인</a>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="/recipe/list/밥요리">레시피</a>
+                    <ul>
+                        <li>
+                            <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/국 & 찌개">국 & 찌개</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/면요리">면요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/튀김요리">튀김요리</a>
+                        </li>
+                        <li>
+                            <a class="custom-nav nav-13" href="/recipe/list/볶음요리">볶음요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/찜 & 조림">찜 & 조림</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/샐러드">샐러드</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/밑반찬">밑반찬</a>
+                        </li>
+                        <li>
+                            <a class="custom-nav nav-13" href="/recipe/list/간식 & 분식">간식 & 분식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/디저트">디저트</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/명절음식">명절음식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="#">쉐프랭킹</a>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="#">스토어</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="bottom_bar_section">
+    <div class="top_container">
+    </div>
+    <div class="recipe_write">
+        <div class="title_bar">
+            <p>
+                레시피 등록
+            </p>
+        </div>
+        <div class="recipe_write_bar">
+            <div class="text_bar">
+                <div class="text_write_bar">
+                    <div class="text title_bar">
+                        <p>레시피 제목</p>
+                        <input type="text" placeholder="ex) 김치볶음밥 만들기">
+                    </div>
+                    <div class="text presentation">
+                        <p>요리 소개</p>
+                        <textarea name="cook_intro" id="cook_intro" placeholder="이 레시피에 대한 소개를 해주세요 !
+
+ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛있게 먹어주심을 바라며 레시피 공유드려요 !"></textarea>
+
+                    </div>
+                    <div class="text category">
+                        <p>카테고리</p>
+                        <select name="요리 종류 선택" id="요리 종류 선택">
+                            <option value="">종류별</option>
+                            <option value="1">밥요리</option>
+                            <option value="2">국 & 찌개</option>
+                            <option value="3">면요리</option>
+                            <option value="4">튀김요리</option>
+                            <option value="5">볶음요리</option>
+                            <option value="6">찜 & 조림</option>
+                            <option value="7">샐러드</option>
+                            <option value="8">밑반찬</option>
+                            <option value="9">간식 & 분식</option>
+                            <option value="10">디저트</option>
+                            <option value="11">명절음식</option>
+                            <option value="12">기타요리</option>
+                        </select>
+                        <span><i class="fa-regular fa-face-smile"></i> 분류를 바르게 설정해주시면, 이용자들이 쉽게 레시피를 검색할 수 있어요.</span>
+                    </div>
+                    <div class="text recipe_level">
+                        <p>요리 난이도</p>
+                        <div class="star_rating">
+                            <span class="star on" value="1"> </span>
+                            <span class="star" value="2"> </span>
+                            <span class="star" value="3"> </span>
+                            <span class="star" value="4"> </span>
+                            <span class="star" value="5"> </span>
+                        </div>
+                        <span><i class="fa-regular fa-face-smile"></i> 요리의 난이도를 별로 표현해 주세요.</span>
+                    </div>
+                </div>
+                <div class="image_bar">
+                    <div id="divMainPhotoBox" is_over="0">
+                        <img id="mainPhotoHolder" onclick="browseMainFile()" src="https://recipe1.ezmember.co.kr/img/pic_none4.gif" alt="이미지" style="width: 250px; height: 250px; cursor:pointer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cooking_ingredients_information">
+            <div class="title_bar">
+                <p>재료 정보</p>
+                <span><i class="fa-regular fa-face-smile"></i> 계량정보가 정확할수록 초보요리사들도 쉽게 요리할 수가 있습니다.</span>
+            </div>
+            <div class="food_info">
+                <div class="food_ingredients_bar">
+                    <div class="main_name">
+                        <p>[ 식자재 ]</p>
+                    </div>
+                    <div id="ingredients">
+                        <div class="ingredients_name hide_on_btn">
+                            <input class="main" type="text" placeholder="ex) 김치">
+                            <input class="sub" type="text" placeholder=" g,ml(단위)">
+                            <button class="minus_btn " type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark"></i></button>
+                        </div>
+                    </div>
+                    <button id="plus_btn_1" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+                </div>
+
+                <div class="food_seasoning_bar">
+                    <div class="main_name">
+                        <p>[ 양념 ]</p>
+                    </div>
+                    <div id="seasoning">
+                        <div class="seasoning_name hide_on_btn">
+                            <input class="main" type="text" placeholder=" ex) 고추장">
+                            <input class="sub" type="text" placeholder="  g,ml(단위)">
+                            <button class="minus_btn" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark"></i></button>
+                        </div>
+                    </div>
+                    <button id="plus_btn_2" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="cooking_sequence">
+            <div class="title_bar">
+                <p>요리 순서</p>
+                <span><i class="fa-regular fa-face-smile"></i> 순서에 맞게 요리 순서를 정렬해 주세요 ! 요리의 맛이 좌우될 수 있는 중요한 부분은 빠짐없이 적어주세요.
+          </span>
+                <br>
+                <span>&nbsp&nbsp&nbsp ex) 10분간 익혀주세요 → 10분간 약불로 익혀주세요.</span>
+                <br>
+                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 설탕은 조금만 넣어주세요. → 설탕은 집에있는 수저로 1수저 넣어주세요.</span>
+                <br>
+                <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 돼지고기의 핏물을 제거해주세요. → 뼈가 있는 돼지고기는 30분정도 찬물이 담긴 볼에 담가 핏물을 빼줍니다.</span>
+            </div>
+            <div class="cooking_order">
+                <div class="make_step">
+                    <div class="top_bar_step">
+                        <div class="step_name_bar">
+                            Step1
+                        </div>
+                        <div class="step_text_bar">
+                            <textarea name="step_text[]" id="step_text_1" placeholder="ex) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
+                        </div>
+                        <div class="step_img_bar">
+                            <div id="divStepPhotoBox_1" is_over="0">
+                                <img id="stepPhotoHolder_1" onclick="browseStepFile(1)" src="https://github.com/Junsu-Ahn/cookers/assets/156152342/aed09051-deec-48df-a4eb-3114ba0b27d6" alt="이미지" style="width: 236px; height: 236px; cursor:pointer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top_bar_tip">
+                        <div class="tip_name_bar"><i class="fa-solid fa-star"></i> 꿀 팁</div>
+                        <div class="tip_text_bar"><textarea name="step_text[]" id="step_text_1" placeholder="ex) 고기요리는 소금보다 설탕을 먼저 넣어야 단맛이 겉돌지 않고 육질이 부드러워져요"></textarea></div>
+                    </div>
+                    <button class="step_del_btn" type="button" value="삭제"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+            </div>
+            <button class="step_add_btn" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+        </div>
+    </div>
+</div>
+<div class="save_container">
+    <a href="#" class="save_btn">
+        <div class="save_icon">
+            <i class="fa fa-floppy-o"></i>
+        </div>
+    </a>
+</div>
+<script th:src="@{/createformjs/recipeCreateFormPage.js}"></script>
+</body>

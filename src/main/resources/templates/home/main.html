@@ -24,7 +24,7 @@
                     <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
                 </a>
                 <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                    <img th:src="${profileImageUrl}" alt="로그아웃">
                 </a>
                 <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>

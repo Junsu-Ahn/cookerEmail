@@ -4,29 +4,27 @@
     <title>오늘은 내가 요리사 ! 오내요</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/recipeDetailPage.css}">
+    <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
-<body style="background-image:url('https://cdn.crowdpic.net/detail-thumb/thumb_d_37453125BCADF055749599B7726A6ED7.jpg')">
+<body style="background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e')">
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
             <div class="main_logo">
-                <a href="/">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
+                <a href="#">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
                 <input type="text" placeholder="레시피 검색">
                 <button class="custom-btn btn-13">검 색</button>
             </div>
             <div class="user_page">
-                <a sec:authorize="isAnonymous()" href="/member/login">
-                    <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
-                </a>
-                <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img th:src="${profileImageUrl}" alt="로그아웃">
-                </a>
-                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
+                <a href="#">
+                    <img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인"></a>
+                <a href="#"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -68,21 +66,35 @@
             </ul>
         </div>
     </div>
-    <div class="bottom_container"></div>
 </div>
 <div class="bottom_bar_section">
-    <div class="slider">
-        <div class="slide">
-            <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/09aeecb8-6300-4748-a9cb-8d2fe3abedfd" alt="이미지 1">
+    <div class="top_container">
+
+    </div>
+    <div class="container_bar">
+        <div class="main_img_box">
+            <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/27c87073-461b-4a2e-8c18-ea88431e7610" alt="메인 이미지">
         </div>
-        <div class="slide">
-            <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/92f9edac-2fc5-4757-ad76-fe5ca92b156d" alt="이미지 2">
+        <div class="title_level">
+            <div class="title_bar">
+                <p>제목</p>
+                <p></p>
+            </div>
+            <div class="level_bar">
+                <p>난이도</p>
+                <p></p>
+            </div>
         </div>
-        <div class="slide">
-            <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/8e0dfeb4-25bf-4c7e-9ce0-b14f71955e0d" alt="이미지 3">
+        <div class="text_body_box">
+            <div class="text_body_bar">
+                <p>내용</p>
+                <p></p>
+            </div>
+        </div>
+        <div class="nickname_box">
+        <span class="nickname_bar">
+          요리왕 A룡
+        </span>
         </div>
     </div>
-    <script th:src="@{mainjs/mainPage.js}"></script>
-</div>
-
 </body>
