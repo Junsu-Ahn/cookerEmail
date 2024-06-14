@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 찾기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" th:href="@{/css/FindPassword.css}">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .input-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 4px #999;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: #388E3C;
+        }
+        .container button:active {
+            background-color: #45a049;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+<div class="top_bar_section">
+    <div class="main_logo">
+        <a href="/">
+            <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
+    </div>
+</div>
+<div class="container">
+    <h2>비밀번호 찾기</h2>
+    <form th:action="@{/member/find-password}" method="POST">
+        <div class="input-container">
+            <input type="text" name="username" placeholder="아이디 입력">
+            <button type="submit">비밀번호 찾기</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

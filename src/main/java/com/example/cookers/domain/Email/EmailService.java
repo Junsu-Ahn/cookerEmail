@@ -28,4 +28,19 @@ public class EmailService {
         }
 
     }
+
+    public void sendHtml(String to, String subject, String htmlBody) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(htmlBody, true); // true indicates html
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send HTML email", e);
+        }
+    }
 }

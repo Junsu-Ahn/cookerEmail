@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.function.ServerResponse;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,7 @@ public class MemberService {
                 .build();
 
 
-        emailService.send(email, "오내요 회원가입을 환영합니다!", "오내요 회원가입이 정상적으로 완료되었습니다^^~!");
+        // emailService.send(email, "오내요 회원가입을 환영합니다!", "오내요 회원가입이 정상적으로 완료되었습니다^^~!");
         return memberRepository.save(member);
     }
 
@@ -53,24 +54,14 @@ public class MemberService {
         return signup(providerTypeCode, username,  "", "",nickname, email, 0L, profileImageUrl); // 최초 로그인 시 딱 한번 실행
     }
 
-    @Transactional
-    public Member signupGoogle(String username, String nickname, String email) {
-        // 구글 로그인으로부터 받은 정보로 Member 객체 생성
-        Member member = Member.builder()
-                .username(username)
-                .password("") // 구글 로그인으로부터 받은 정보만으로 회원가입이 이루어지므로 비밀번호는 필요하지 않음
-                .nickname(nickname)
-                .email(email)
-                .build();
-
-        // 회원 저장
-        return memberRepository.save(member);
-    }
 
     public Optional<Member> findByUsername(String username) {
         return memberRepository.findByusername(username);
     }
     public Optional<Member> findByUsernameAndProviderTypeCode(String username, String providerTypeCode) {
         return memberRepository.findByUsernameAndProviderTypeCode(username, providerTypeCode);
+    }
+    public List<Member> findByUserEmail(String email) {
+        return memberRepository.findByemail(email);
     }
 }

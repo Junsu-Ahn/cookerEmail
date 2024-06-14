@@ -7,6 +7,7 @@ import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,9 +15,11 @@ import lombok.ToString;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +28,7 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
+    private final EmailService emailService;
     @ControllerAdvice
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
@@ -62,16 +66,54 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid SignForm signForm, Model model) {
+    public String signup(@Valid SignForm signForm) {
         memberService.signup(signForm.getProviderTypeCode(), signForm.getUsername(), signForm.getPassword(), signForm.getPassword_confirm(), signForm.getNickname(), signForm.getEmail(), 0L, signForm.getProfile_url());
         return "redirect:/member/login";
     }
 
-    @PostMapping("/signup/google")
-    public String signupGoogle(@Valid GoogleSignForm signForm) {
-        memberService.signupGoogle(signForm.getUsername(), signForm.getNickname(), signForm.getEmail());
-        return "redirect:/member/login"; // 회원가입 후 메인 페이지로 이동하도록 수정
+    @GetMapping("/findId")
+    public String find_id() {
+        return "member/findId";
     }
+
+    @PostMapping("/findId")
+    public String find_id2(@RequestParam("email") String email, Model model) {
+        List<Member> members = memberService.findByUserEmail(email);
+        if(members.isEmpty())  // 멤버를 찾을 수 없는 경우 처리
+        { model.addAttribute("error", "입력하신 이메일로 등록된 계정이 없습니다.");
+            return "member/findId";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><body>");
+        sb.append("<h2>당신의 오내요 아이디는 다음과 같습니다:</h2>");
+        sb.append("<ul>");
+
+        // 멤버들의 아이디를 StringBuilder에 추가
+        for (Member member : members) {
+            sb.append("<li>").append(member.getUsername()).append("</li>");
+        }
+
+        sb.append("</ul>");
+        sb.append("</body></html>");
+
+        // 이메일 발송
+        emailService.sendHtml(email, "당신의 오내요 아이디 입니다!", sb.toString());
+
+        return "redirect:/member/login";
+    }
+
+
+    @GetMapping("find_pw")
+    public String find_pw() {
+        return "member/find_pw";
+    }
+
+    @PostMapping("/find_pw")
+    public String find_pw2() {
+        return "redirect:/member/find_pw";
+    }
+
 
     @ToString
     @Getter
