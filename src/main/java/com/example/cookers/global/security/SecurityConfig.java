@@ -1,5 +1,8 @@
 package com.example.cookers.global.security;
 
+import com.example.cookers.domain.member.entity.Role;
+import com.example.cookers.domain.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -18,10 +24,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception  {
         return http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(new AntPathRequestMatcher("/oauth2/login/info")).authenticated() // 특정 경로에 대한 인증 설정
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자 페이지에 대한 접근 제어
                         .anyRequest().permitAll() // 나머지 요청은 모두 허용
                 )
                 .formLogin(formLogin -> formLogin

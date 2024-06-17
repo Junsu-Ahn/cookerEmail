@@ -7,11 +7,12 @@ import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final EmailService emailService;
+
     @ControllerAdvice
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
@@ -66,8 +68,25 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid SignForm signForm) {
-        memberService.signup(signForm.getProviderTypeCode(), signForm.getUsername(), signForm.getPassword(), signForm.getPassword_confirm(), signForm.getNickname(), signForm.getEmail(), 0L, signForm.getProfile_url());
+    public String signup(@Valid SignForm signForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "member/signup";
+        }
+        try {
+            memberService.signup(
+                    signForm.getProviderTypeCode(),
+                    signForm.getUsername(),
+                    signForm.getPassword(),
+                    signForm.getPassword_confirm(),
+                    signForm.getNickname(),
+                    signForm.getEmail(),
+                    0L,
+                    signForm.getProfile_url()
+            );
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/signup";
+        }
         return "redirect:/member/login";
     }
 
@@ -114,6 +133,13 @@ public class MemberController {
         return "redirect:/member/find_pw";
     }
 
+    @GetMapping("/admin/memberList")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String memberList(Model model) {
+        List<Member> members = memberService.getAllMembers();
+        model.addAttribute("members", members);
+        return "admin/memberList";
+    }
 
     @ToString
     @Getter

@@ -1,0 +1,75 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.top_bar_section {
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.main_logo img {
+    height: 100px; /* 로고 이미지 크기 조정 */
+    cursor: pointer; /* 포인터 커서 추가 */
+}
+
+.signup_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signup_form {
+    background-color: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 400px;
+}
+
+.signup_form div {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.signup_form span {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.signup_form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.signup_form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.signup_form button:hover {
+    background-color: #45a049;
+}
+
+.error_message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}

@@ -1,28 +1,70 @@
-<div>회원가입</div>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘은 내가 요리사! 오내요</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+    <style>
+        .find {
+            text-align: center; /* Center align the buttons */
+            margin-top: 10px; /* Add margin at the top */
+        }
 
-<form th:action="@{/member/signup}" method="POST">
-    <div>
-        <span>유저 아이디</span>
-        <input type="text" name="username" placeholder="아이디">
-    </div>
-    <div>
-        <span>유저 비밀번호</span>
-        <input type="password" name="password" placeholder="비밀번호">
-    </div>
-    <div>
-        <span>유저 비밀번호 확인</span>
-        <input type="password" name="password_confirm" placeholder="비밀번호 확인">
-    </div>
-    <div>
-        <span>닉네임</span>
-        <input type="text" name="nickname" placeholder="닉네임">
-    </div>
-    <div>
-        <span>이메일</span>
-        <input type="email" name="email" placeholder="이메일">
-    </div>
-    <div>
-        <button type="submit">로그인</button>
-    </div>
+        .find a {
+            display: inline-block; /* Display buttons inline */
+            margin-right: 10px; /* Add margin between the buttons */
+        }
 
-</form>
+        .find button {
+            width: auto; /* Adjust button width */
+        }
+    </style>
+</head>
+<body>
+<div class="top_bar_section">
+    <div class="main_logo">
+        <a href="javascript:history.back();">
+            <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴">
+        </a>
+    </div>
+</div>
+
+<div class="signup_container">
+    <div class="signup_form">
+        <div>회원가입</div>
+
+        <form th:action="@{/member/signup}" method="POST">
+            <div th:if="${errorMessage}" class="error_message">
+                <span th:text="${errorMessage}"></span>
+            </div>
+            <div>
+                <span>유저 아이디</span>
+                <input type="text" name="username" placeholder="아이디">
+            </div>
+            <div>
+                <span>유저 비밀번호</span>
+                <input type="password" name="password" placeholder="비밀번호">
+            </div>
+            <div>
+                <span>유저 비밀번호 확인</span>
+                <input type="password" name="password_confirm" placeholder="비밀번호 확인">
+            </div>
+            <div>
+                <span>닉네임</span>
+                <input type="text" name="nickname" placeholder="닉네임">
+            </div>
+            <div>
+                <span>이메일</span>
+                <input type="email" name="email" placeholder="이메일">
+            </div>
+            <div>
+                <button type="submit">회원가입</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

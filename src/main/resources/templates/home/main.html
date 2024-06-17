@@ -27,6 +27,9 @@
                     <img th:src="${profileImageUrl}" alt="로그아웃">
                 </a>
                 <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
+                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/memberList">
+                    <img src="https://example.com/path/to/your/image" alt="Admin Member List">
+                </a>
             </div>
         </div>
     </div>
